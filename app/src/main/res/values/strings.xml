@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Vendedor</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="usuario">Usuario</string>
+    <string name="pedidos">Pedidos</string>
+    <string name="pagos">Pagos</string>
+    <string name="cerrar_sesi_n">Cerrar Sesión</string>
+    <string name="bienvenido">Bienvenido/a,</string>
+</resources>
