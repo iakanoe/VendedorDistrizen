@@ -6,4 +6,8 @@
     <string name="pagos">Pagos</string>
     <string name="cerrar_sesi_n">Cerrar Sesión</string>
     <string name="bienvenido">Bienvenido/a,</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dummyName">Villareal, María Victoria</string>
 </resources>
