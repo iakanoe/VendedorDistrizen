@@ -11,8 +11,27 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recyclerView"
+        android:id="@+id/pedidosRecyclerView"
+        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        android:textAlignment="center"
+        android:visibility="gone"
+        android:id="@+id/txtPedidosEmpty"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:text="@string/nohaypedidos"
+        android:textSize="14sp"/>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pedidosProgressBar"
+        android:layout_gravity="center"/>
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -22,11 +41,10 @@
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:id="@+id/toolbarPedidos"
+            android:id="@+id/pedidosToolbar"
             android:background="@color/colorPrimary"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:layout_scrollFlags="scroll|enterAlways|snap"/>
 
     </android.support.design.widget.AppBarLayout>
-
 </android.support.design.widget.CoordinatorLayout>

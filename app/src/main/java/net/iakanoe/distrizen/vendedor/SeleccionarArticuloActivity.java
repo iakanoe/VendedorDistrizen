@@ -1,6 +1,5 @@
 package net.iakanoe.distrizen.vendedor;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -8,13 +7,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.Objects;
 
-public class PedidosActivity extends AppCompatActivity {
+public class SeleccionarArticuloActivity extends AppCompatActivity {
 
 	@Override protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -28,20 +28,20 @@ public class PedidosActivity extends AppCompatActivity {
 		showData();
 	}
 
-	void showData(){
-		findViewById(R.id.pedidosProgressBar).setVisibility(View.GONE);
-		// Mostrar los datos o el txtPedidosEmpty
-	}
-
 	boolean getData(){
-		// Descargar lista de pedidos (pendientes?) y guardarla en variable
+		// Descargar lista de artículos y guardarla en variable "carrito"
 		// Devolver verdadero si se pudo descargar algo (aunque sea vacio)
 		// Devolver falso si no se pudo descargar porque no hubo internet o algo
 		return false; // Provisional
 	}
 
+	void showData(){
+		findViewById(R.id.seleccionarProgressBar).setVisibility(View.GONE);
+		// Mostrar los datos o el txtSeleccionarEmpty
+	}
+
 	void setupUI(){
-		setContentView(R.layout.activity_pedidos);
+		setContentView(R.layout.activity_seleccionar_articulo);
 		setSupportActionBar((Toolbar) findViewById(R.id.pedidosToolbar));
 		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 		((RecyclerView) findViewById(R.id.pedidosRecyclerView)).setLayoutManager(
@@ -58,15 +58,39 @@ public class PedidosActivity extends AppCompatActivity {
 		}).attachToRecyclerView((RecyclerView) findViewById(R.id.pedidosRecyclerView));
 	}
 
-	@Override public boolean onCreateOptionsMenu(Menu menu){
-		getMenuInflater().inflate(R.menu.toolbar_pedidos_menu, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
+	static class ArticulosAdapter extends RecyclerView.Adapter<ArticulosAdapter.ArticuloHolder> {
+		private Pedido pedido;
 
-	@Override public boolean onOptionsItemSelected(MenuItem item){
-		if(item.getItemId() != R.id.pedidosToolbar_action_add)
-			return super.onOptionsItemSelected(item);
-		startActivity(new Intent(getApplicationContext(), SeleccionarArticuloActivity.class));
-		return super.onOptionsItemSelected(item);
+		ArticulosAdapter(Pedido pedido){
+			this.pedido = pedido;
+		}
+
+		void add(Articulo a, int cantidad){
+			pedido.addArticulo(a, cantidad);
+			notifyItemInserted(pedido.getItems().indexOf(a));
+		}
+
+		@NonNull @Override public ArticuloHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i){
+			return new ArticuloHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_articulo, viewGroup, false));
+		}
+
+		@Override public void onBindViewHolder(@NonNull ArticuloHolder articuloHolder, int i){
+			articuloHolder.setArticulo(i);
+		}
+
+		@Override public int getItemCount(){
+			return pedido.size();
+		}
+
+		class ArticuloHolder extends RecyclerView.ViewHolder {
+			ArticuloHolder(@NonNull View itemView){
+				super(itemView);
+			}
+
+			void setArticulo(int a){
+				((TextView) itemView.findViewById(R.id.txtDescripcion)).setText(pedido.getDescripcion(a));
+				((TextView) itemView.findViewById(R.id.txtPrecio)).setText(String.valueOf(pedido.getPrecio(a)));
+			}
+		}
 	}
 }
