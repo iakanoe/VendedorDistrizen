@@ -3,6 +3,10 @@ package net.iakanoe.distrizen.vendedor;
 import android.net.Uri;
 import android.os.AsyncTask;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -15,8 +19,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 class CommunicationTask<T extends CommunicationListener> extends AsyncTask<String, Void, String> {
-	private static final String url = "TODO"; // TODO  http://url.com/android.php
-	protected T listener;
+	private static final String url = "http://softway.com.ar/distrizen/android.php";
+	T listener;
+	boolean json = false;
 
 	void setListener(T listener){
 		this.listener = listener;
@@ -40,11 +45,14 @@ class CommunicationTask<T extends CommunicationListener> extends AsyncTask<Strin
 
 	private String executeQuery(String query) throws IOException{
 		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-		connection.setReadTimeout(10000);
+		connection.setReadTimeout(15000);
 		connection.setConnectTimeout(15000);
 		connection.setRequestMethod("POST");
 		connection.setDoInput(true);
 		connection.setDoOutput(true);
+		if(json){
+			connection.setRequestProperty("Content-Type", "application/json");
+		}
 		connection.connect();
 
 		OutputStream outputStream = connection.getOutputStream();
@@ -77,9 +85,87 @@ class LoginTask extends CommunicationTask<LoginListener> {
 			.appendQueryParameter("action", "login")
 			.appendQueryParameter("user", user)
 			.appendQueryParameter("pass", pass)
+			.appendQueryParameter("auth", "00distrizen00")
 			.build()
 			.getEncodedQuery();
 
 		execute(query);
+	}
+}
+
+class ClientesTask extends CommunicationTask<ClientesListener> {
+	@Override void setListener(ClientesListener listener){
+		this.listener = listener;
+	}
+
+	void getClientes(String user){
+		String query = new Uri.Builder()
+			.appendQueryParameter("action", "clientes")
+			.appendQueryParameter("user", user)
+			.appendQueryParameter("auth", "00distrizen00")
+			.build()
+			.getEncodedQuery();
+
+		execute(query);
+	}
+}
+
+class ArticulosTask extends CommunicationTask<ArticulosListener> {
+	@Override void setListener(ArticulosListener listener){
+		this.listener = listener;
+	}
+
+	void getArticulos(){
+		String query = new Uri.Builder()
+			.appendQueryParameter("action", "articulos")
+			.appendQueryParameter("auth", "00distrizen00")
+			.build()
+			.getEncodedQuery();
+		execute(query);
+	}
+}
+
+class LineasTask extends CommunicationTask<LineasListener> {
+	@Override void setListener(LineasListener listener){
+		this.listener = listener;
+	}
+
+	void getLineas(){
+		String query = new Uri.Builder()
+			.appendQueryParameter("action", "lineas")
+			.appendQueryParameter("auth", "00distrizen00")
+			.build()
+			.getEncodedQuery();
+		execute(query);
+	}
+}
+
+class CrearPedidoTask extends CommunicationTask<CrearPedidoListener> {
+	@Override void setListener(CrearPedidoListener listener){
+		this.listener = listener;
+	}
+
+	void subirPedido(Pedido pedido){
+		if(pedido == null) return;
+		try {
+			json = true;
+			JSONArray array = new JSONArray();
+			for(int i = 0; i < pedido.size(); i++){
+				JSONObject object = new JSONObject();
+				object.put("articulo", pedido.getItem(i).getCodigo());
+				object.put("cantidad", pedido.getCantidad(i));
+				object.put("importe", pedido.getPrecio(i));
+				array.put(object);
+			}
+			JSONObject query = new JSONObject();
+			query.put("action", "crearpedido");
+			query.put("auth", "00distrizen00");
+			query.put("pedidoarray", array);
+			query.put("pedidoclient", pedido.getCliente().getCodigo());
+			execute(query.toString());
+		} catch(JSONException e) {
+			e.printStackTrace();
+			listener.onCommunicationFailed();
+		}
 	}
 }

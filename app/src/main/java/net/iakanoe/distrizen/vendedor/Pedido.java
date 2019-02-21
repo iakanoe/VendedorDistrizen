@@ -1,28 +1,54 @@
 package net.iakanoe.distrizen.vendedor;
 
-import android.util.SparseIntArray;
-
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-class Pedido {
-	private List<Articulo> carrito;
+class Pedido implements Serializable {
+	private List<Articulo> carrito = new ArrayList<>();
+	private List<Integer> cantidades = new ArrayList<>();
 	private Cliente cliente;
-	private SparseIntArray cantidades = new SparseIntArray();
 
 	Pedido(Cliente cliente){
 		this.cliente = cliente;
 	}
 
+	Articulo getItem(int i){
+		return carrito.get(i);
+	}
+
+	int getCantidad(int i){
+		return cantidades.get(i);
+	}
+
+	Cliente getCliente(){
+		return cliente;
+	}
+
 	void addArticulo(Articulo a, int cantidad){
 		carrito.add(a);
-		cantidades.append(carrito.indexOf(a), cantidad);
+		cantidades.add(cantidad);
 	}
 
 	double getPrecioTotal(){
 		double total = 0.0;
 		for(Articulo a : carrito)
-			total += (a.getPrecio(cliente.getListaPrecios()) * cantidades.get(carrito.indexOf(a)));
+			total += a.getPrecio(cliente.getListaPrecios()) * cantidades.get(carrito.indexOf(a));
 		return total;
+	}
+
+	void addArticulo(Articulo a, int cantidad, int posicion){
+		carrito.add(posicion, a);
+		cantidades.add(posicion, cantidad);
+	}
+
+	void removeArticulo(int position){
+		carrito.remove(position);
+		cantidades.remove(position);
+	}
+
+	int getListaPrecios(){
+		return cliente.getListaPrecios();
 	}
 
 	int size(){
@@ -33,8 +59,18 @@ class Pedido {
 		return carrito;
 	}
 
-	double getPrecio(int i){
+	void setCantidad(int a, int c){
+		if(a < 0 | a > cantidades.size()) return;
+		cantidades.set(a, c);
+	}
+
+	double getPrecioUnitario(int i){
 		return carrito.get(i).getPrecio(cliente.getListaPrecios());
+	}
+
+	double getPrecio(int i){
+		if(carrito.get(i) == null || cantidades.get(i) == null) return 0;
+		return carrito.get(i).getPrecio(cliente.getListaPrecios()) * cantidades.get(i);
 	}
 
 	String getDescripcion(int i){

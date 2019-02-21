@@ -7,43 +7,74 @@ import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-	String nombre = null;
+	String nombre;
+	String user;
+	String token;
+	String pass;
 
 	@Override protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		if(!loggedIn()) logOut();
-		setupUI();
+		setContentView(R.layout.activity_main);
+		checkLoggedIn();
 	}
 
-	boolean loggedIn(){
-		/* TODO:
-		 * Chequear si existe el usuario en las preferences, sino devolver falso
-		 * Chequear si existe la contraseña en las preferences, sino devolver falso
-		 * Probar login con el servicio PHP
-		 * PHP no devuelve nada, devolver falso
-		 * PHP devuelve boolean y string:
-		 *     Poner string en el campo "nombre"
-		 *     Devolver boolean
-		 * (Futuro 1) PHP devuelve true/false, las consultas a la DB se deben hacer con el usuario y contraseña
-		 * (Futuro 2) PHP devuelve codigo de usuario, las consultas a la DB se deben hacer con el codigo y contraseña
-		 * (Futuro 3) PHP devuelve access token, se usa en conjunto con las consultas para verificar
-		 * (Futuro 4) PHP devuelve access token, se usa para encriptar las consultas
-		 */
-		return false;
+	void checkLoggedIn(){
+		if(getIntent().hasExtra("login") && getIntent().getBooleanExtra("login", false)){
+			nombre = getIntent().getStringExtra("name");
+			user = getIntent().getStringExtra("user");
+			token = getIntent().getStringExtra("token");
+			pass = getIntent().getStringExtra("pass");
+			saveCredentials();
+			setupUI();
+			return;
+		}
+
+		if(getPreferences(MODE_PRIVATE).contains("user") && getPreferences(MODE_PRIVATE).contains("pass")){
+			user = getPreferences(MODE_PRIVATE).getString("user", "");
+			pass = getPreferences(MODE_PRIVATE).getString("pass", "");
+			LoginTask loginTask = new LoginTask();
+			loginTask.setListener(new LoginListener() {
+				@Override void onLoggedIn(String n, String t){
+					token = t;
+					nombre = n;
+					saveCredentials();
+					setupUI();
+				}
+
+				@Override void onLoginError(String error){
+					logOut();
+				}
+
+				@Override public void onCommunicationFailed(){
+					logOut();
+				}
+			});
+			loginTask.login(user, pass);
+			return;
+		}
+
+		logOut();
 	}
 
 	void logOut(){
-		// TODO: Borrar contraseña de las preferences
+		getPreferences(MODE_PRIVATE).edit().clear().apply();
 		startActivity(new Intent(getApplicationContext(), LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
 	}
 
+	void saveCredentials(){
+		getPreferences(MODE_PRIVATE)
+			.edit()
+			.putString("user", user)
+			.putString("pass", pass)
+			.putString("name", nombre)
+			.apply();
+	}
+
 	void setupUI(){
-		setContentView(R.layout.activity_main);
-		if(nombre != null)
-			((TextView) findViewById(R.id.txtNombre)).setText(nombre);
+		((TextView) findViewById(R.id.txtNombre)).setText(nombre);
 		findViewById(R.id.btnPedidos).setOnClickListener(new View.OnClickListener() {
 			@Override public void onClick(View v){
-				startActivity(new Intent(getApplicationContext(), PedidosActivity.class));
+				nuevoPedido();
 			}
 		});
 		findViewById(R.id.btnPagos).setOnClickListener(new View.OnClickListener() {
@@ -58,5 +89,14 @@ public class MainActivity extends AppCompatActivity {
 		});
 		findViewById(R.id.loadingBar).setVisibility(View.GONE);
 		findViewById(R.id.mainLayout).setVisibility(View.VISIBLE);
+	}
+
+	void nuevoPedido(){
+		Intent i = new Intent(this, SeleccionarClienteActivity.class);
+		i.putExtra("user", user);
+		i.putExtra("pass", pass);
+		i.putExtra("token", token);
+		i.putExtra("name", nombre);
+		startActivity(i);
 	}
 }

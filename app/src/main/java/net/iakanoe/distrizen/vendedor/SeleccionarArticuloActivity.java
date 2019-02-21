@@ -12,18 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Objects;
-
 public class SeleccionarArticuloActivity extends AppCompatActivity {
 
 	@Override protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_seleccionar_articulo);
 		setupUI();
 
 		while(!getData()){
 			// Mostrar popup que diga que no hay internet o un error o algo (Reintentar // Cerrar)
 			// Cerrar app si se toca el boton de cerrar
-			continue; // Probar de nuevo si se toca el de reintentar (seguir con el while)
+			//continue; // Probar de nuevo si se toca el de reintentar (seguir con el while)
 		}
 		showData();
 	}
@@ -36,14 +35,13 @@ public class SeleccionarArticuloActivity extends AppCompatActivity {
 	}
 
 	void showData(){
-		findViewById(R.id.seleccionarProgressBar).setVisibility(View.GONE);
-		// Mostrar los datos o el txtSeleccionarEmpty
+		findViewById(R.id.seleccionarArticuloProgressBar).setVisibility(View.GONE);
+		// Mostrar los datos o el txtSeleccionarArticuloEmpty
 	}
 
 	void setupUI(){
-		setContentView(R.layout.activity_seleccionar_articulo);
 		setSupportActionBar((Toolbar) findViewById(R.id.pedidosToolbar));
-		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		((RecyclerView) findViewById(R.id.pedidosRecyclerView)).setLayoutManager(
 			new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 		new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START | ItemTouchHelper.END) {
@@ -58,7 +56,7 @@ public class SeleccionarArticuloActivity extends AppCompatActivity {
 		}).attachToRecyclerView((RecyclerView) findViewById(R.id.pedidosRecyclerView));
 	}
 
-	static class ArticulosAdapter extends RecyclerView.Adapter<ArticulosAdapter.ArticuloHolder> {
+	private class ArticulosAdapter extends RecyclerView.Adapter<ArticulosAdapter.ArticuloHolder> {
 		private Pedido pedido;
 
 		ArticulosAdapter(Pedido pedido){
@@ -89,7 +87,7 @@ public class SeleccionarArticuloActivity extends AppCompatActivity {
 
 			void setArticulo(int a){
 				((TextView) itemView.findViewById(R.id.txtDescripcion)).setText(pedido.getDescripcion(a));
-				((TextView) itemView.findViewById(R.id.txtPrecio)).setText(String.valueOf(pedido.getPrecio(a)));
+				((TextView) itemView.findViewById(R.id.txtPrecio)).setText(String.valueOf(pedido.getPrecioUnitario(a)));
 			}
 		}
 	}

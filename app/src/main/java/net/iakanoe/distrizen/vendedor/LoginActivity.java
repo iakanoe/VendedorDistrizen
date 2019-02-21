@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
 	}
 
 	void tryLogin(){
+		activationUI(false);
 		String user = ((TextInputLayout) findViewById(R.id.tilUsuario)).getEditText().getText().toString();
 		String pass = ((TextInputLayout) findViewById(R.id.tilContrasena)).getEditText().getText().toString();
 		LoginTask loginTask = new LoginTask();
@@ -50,10 +51,11 @@ public class LoginActivity extends AppCompatActivity {
 					})
 					.create()
 					.show();
+				activationUI(true);
 			}
 
 			@Override public void onCommunicationFailed(){
-				new AlertDialog.Builder(getApplicationContext())
+				new AlertDialog.Builder(LoginActivity.this)
 					.setMessage("Ocurrió un fallo en la comunicación con el servicio de inicio de sesión.")
 					.setCancelable(true)
 					.setNegativeButton("Volver", new DialogInterface.OnClickListener() {
@@ -68,8 +70,16 @@ public class LoginActivity extends AppCompatActivity {
 					})
 					.create()
 					.show();
+				activationUI(true);
 			}
 		});
 		loginTask.login(user, pass);
+	}
+
+	void activationUI(boolean b){
+		findViewById(R.id.tilUsuario).setEnabled(b);
+		findViewById(R.id.tilContrasena).setEnabled(b);
+		findViewById(R.id.btnLogin).setEnabled(b);
+		findViewById(R.id.progressBar).setVisibility(b ? View.GONE : View.VISIBLE);
 	}
 }

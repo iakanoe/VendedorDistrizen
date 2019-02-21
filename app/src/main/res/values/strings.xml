@@ -2,13 +2,10 @@
     <string name="app_name">Vendedor</string>
     <string name="contrase_a">Contraseña</string>
     <string name="usuario">Usuario</string>
-    <string name="pedidos">Pedidos</string>
+	<string name="pedidos">Crear Pedido</string>
     <string name="pagos">Pagos</string>
     <string name="cerrar_sesi_n">Cerrar Sesión</string>
     <string name="bienvenido">Bienvenido/a,</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dummyName">Villareal, María Victoria</string>
     <string name="linea">Línea</string>
     <string name="anadir">Añadir</string>
@@ -17,4 +14,18 @@
     <string name="nohaypedidos">No hay pedidos. Cree uno con el botón de agregar pedido (+).</string>
     <string name="iniciar_sesi_n">Iniciar Sesión</string>
     <string name="abajo">Abajo</string>
+	<string name="noclients">No hay clientes a su nombre.</string>
+	<string name="precio_unitario">Precio unitario:</string>
+	<string name="unidades_format">%d unidades</string>
+	<string name="dinero_format">$%1.2f</string>
+	<string name="articulos_message">Ocurrió un fallo en la comunicación con el servicio de artículos.</string>
+	<string name="pedido_message">Ocurrió un fallo en la comunicación con el servicio de pedidos.</string>
+	<string name="lineas_message">Ocurrió un fallo en la comunicación con el servicio de líneas.</string>
+	<string name="buscar_art_culo">Buscar Artículo</string>
+	<string name="confirmar_npedido">Confirmar\nPedido</string>
+	<string name="total">Total:</string>
+	<string name="no_articulos">El pedido no tiene artículos.\nAgregue uno con el botón de agregar (+).</string>
+	<string name="cantidad">Cantidad:</string>
+	<string name="a_adir_art_culo">Añadir artículo</string>
+	<string name="subiendo_pedido">Subiendo pedido…</string>
 </resources>
