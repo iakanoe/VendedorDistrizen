@@ -13,6 +13,8 @@ class Pedido implements Serializable {
 		this.cliente = cliente;
 	}
 
+	Pedido(){}
+
 	Articulo getItem(int i){
 		return carrito.get(i);
 	}
@@ -75,5 +77,36 @@ class Pedido implements Serializable {
 
 	String getDescripcion(int i){
 		return carrito.get(i).getDescripcion();
+	}
+}
+
+class PedidoRaw extends Pedido {
+	private int id;
+	private String cliente;
+	private double total;
+	private int size;
+
+	PedidoRaw(int id, String cliente, double total, int size){
+		super();
+		this.id = id;
+		this.cliente = cliente;
+		this.total = total;
+		this.size = size;
+	}
+
+	@Override int size(){
+		return size;
+	}
+
+	public int getId(){
+		return id;
+	}
+
+	public String getClienteRaw(){
+		return cliente;
+	}
+
+	public double getTotal(){
+		return total;
 	}
 }

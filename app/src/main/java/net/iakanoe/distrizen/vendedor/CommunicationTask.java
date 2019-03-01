@@ -169,3 +169,53 @@ class CrearPedidoTask extends CommunicationTask<CrearPedidoListener> {
 		}
 	}
 }
+
+class GetPedidosTask extends CommunicationTask<GetPedidosListener> {
+	@Override void setListener(GetPedidosListener listener){
+		this.listener = listener;
+	}
+
+	void getPedidos(String user){
+		String query = new Uri.Builder()
+			.appendQueryParameter("action", "getpedidos")
+			.appendQueryParameter("auth", "00distrizen00")
+			.appendQueryParameter("user", user)
+			.build()
+			.getEncodedQuery();
+		execute(query);
+	}
+}
+
+class PedidoInfoTask extends CommunicationTask<PedidoInfoListener> {
+	@Override void setListener(PedidoInfoListener listener){
+		this.listener = listener;
+	}
+
+	void getPedidoInfo(int pedido){
+		String query = new Uri.Builder()
+			.appendQueryParameter("action", "pedidoinfo")
+			.appendQueryParameter("auth", "00distrizen00")
+			.appendQueryParameter("id", String.valueOf(pedido))
+			.build()
+			.getEncodedQuery();
+		execute(query);
+	}
+}
+
+class CobrarTask extends CommunicationTask<CobrarListener> {
+	@Override void setListener(CobrarListener listener){
+		this.listener = listener;
+	}
+
+	void cobrar(String cliente, double importe, int factura){
+		String query = new Uri.Builder()
+			.appendQueryParameter("action", "cobrar")
+			.appendQueryParameter("auth", "00distrizen00")
+			.appendQueryParameter("cliente", cliente)
+			.appendQueryParameter("importe", String.valueOf(importe))
+			.appendQueryParameter("factura", String.valueOf(factura))
+			.build()
+			.getEncodedQuery();
+		execute(query);
+	}
+}

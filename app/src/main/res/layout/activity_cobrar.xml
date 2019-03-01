@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".CobrarActivity">
+
+	<android.support.constraint.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+		<TextView
+			android:id="@+id/textView8"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginBottom="16dp"
+			android:text="Numero de Pedido:"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toTopOf="@+id/textView14"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.17000002"
+			app:layout_constraintVertical_chainStyle="packed" />
+
+		<TextView
+			android:id="@+id/txtCobrarPedidoID"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginEnd="8dp"
+			android:text="1420"
+			app:layout_constraintBottom_toBottomOf="@+id/textView8"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/textView8"
+			app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+		<TextView
+			android:id="@+id/textView14"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginBottom="16dp"
+			android:text="Cliente:"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toTopOf="@+id/textView17"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+		<TextView
+			android:id="@+id/txtCobrarCliente"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginEnd="8dp"
+			android:text="chino x kilo"
+			android:visibility="visible"
+			app:layout_constraintBottom_toBottomOf="@+id/textView14"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/textView14"
+			app:layout_constraintTop_toTopOf="@+id/textView14" />
+
+		<TextView
+			android:id="@+id/textView17"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginBottom="16dp"
+			android:text="Total:"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toTopOf="@+id/textView18"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+		<TextView
+			android:id="@+id/txtCobrarTotal"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginEnd="8dp"
+			android:text="$1485.52"
+			app:layout_constraintBottom_toBottomOf="@+id/textView17"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/textView17"
+			app:layout_constraintTop_toTopOf="@+id/textView17" />
+
+		<TextView
+			android:id="@+id/textView18"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginBottom="16dp"
+			android:text="Importe: $"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toTopOf="@+id/textView13"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+		<EditText
+			android:id="@+id/etxtCobrarImporte"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginEnd="8dp"
+			android:ems="10"
+			android:inputType="numberDecimal"
+			app:layout_constraintBaseline_toBaselineOf="@+id/textView18"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/textView18" />
+
+		<Button
+			android:id="@+id/btnCobrar"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginEnd="16dp"
+			android:layout_marginBottom="16dp"
+			android:text="Cobrar"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+		<TextView
+			android:id="@+id/textView13"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginBottom="16dp"
+			android:text="Factura:"
+			android:textStyle="bold"
+			android:visibility="gone"
+			app:layout_constraintBottom_toTopOf="@+id/btnCobrar"
+			app:layout_constraintEnd_toStartOf="@+id/etxtCobrarFactura"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+		<EditText
+			android:id="@+id/etxtCobrarFactura"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginEnd="8dp"
+			android:ems="10"
+			android:inputType="number"
+			android:visibility="gone"
+			app:layout_constraintBaseline_toBaselineOf="@+id/textView13"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/textView13" />
+
+		<EditText
+			android:id="@+id/etxtCobrarCliente"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginEnd="8dp"
+			android:ems="10"
+			android:inputType="textPersonName"
+			android:visibility="gone"
+			app:layout_constraintBaseline_toBaselineOf="@+id/textView14"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/textView14" />
+
+	</android.support.constraint.ConstraintLayout>
+
+	<android.support.design.widget.AppBarLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+		<android.support.v7.widget.Toolbar
+			android:id="@+id/cobrarToolbar"
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:background="@color/colorPrimary"
+			android:theme="@style/ThemeOverlay.AppCompat.Light" />
+
+	</android.support.design.widget.AppBarLayout>
+</android.support.design.widget.CoordinatorLayout>

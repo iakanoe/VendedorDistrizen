@@ -79,7 +79,12 @@ public class MainActivity extends AppCompatActivity {
 		});
 		findViewById(R.id.btnPagos).setOnClickListener(new View.OnClickListener() {
 			@Override public void onClick(View v){
-				startActivity(new Intent(getApplicationContext(), PagosActivity.class));
+				startActivity(new Intent(getApplicationContext(), PagosActivity.class).putExtra("user", user));
+			}
+		});
+		findViewById(R.id.btnCobrar).setOnClickListener(new View.OnClickListener() {
+			@Override public void onClick(View v){
+				startActivity(new Intent(getApplicationContext(), CobrarActivity.class).putExtra("frommain", true));
 			}
 		});
 		findViewById(R.id.btnLogout).setOnClickListener(new View.OnClickListener() {

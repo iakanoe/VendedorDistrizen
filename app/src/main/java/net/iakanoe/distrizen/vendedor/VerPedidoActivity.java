@@ -94,7 +94,7 @@ public class VerPedidoActivity extends AppCompatActivity {
 	}
 
 	void nuevoArticulo(){
-		startActivity(new Intent(this, SeleccionarArticuloActivityV2.class)
+		startActivity(new Intent(this, SeleccionarArticuloActivity.class)
 			.putExtra("pedido", articulosAdapter.getPedido())
 			.putExtra("fromver", true));
 	}

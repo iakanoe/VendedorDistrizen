@@ -124,3 +124,77 @@ abstract class CrearPedidoListener implements CommunicationListener {
 
 	abstract void onCrearPedidoSuccess();
 }
+
+abstract class GetPedidosListener implements CommunicationListener {
+	@Override public void onCommunicationAchieved(String result){
+		if(!result.contains("[")){
+			onCommunicationFailed();
+			return;
+		}
+		try {
+			JSONArray resultado = new JSONArray(result);
+			List<PedidoRaw> list = new ArrayList<>();
+			for(int i = 0; i < resultado.length(); i++){
+				JSONObject linea = resultado.getJSONObject(i);
+				int pedido = linea.getInt("pedido");
+				String cliente = linea.getString("cliente");
+				double total = linea.getDouble("total");
+				int size = linea.getInt("size");
+				list.add(new PedidoRaw(pedido, cliente, total, size));
+			}
+			onGotPedidos(list);
+		} catch(JSONException e) {
+			e.printStackTrace();
+			onCommunicationFailed();
+		}
+	}
+
+	abstract void onGotPedidos(List<PedidoRaw> pedidos);
+}
+
+abstract class PedidoInfoListener implements CommunicationListener {
+	@Override public void onCommunicationAchieved(String result){
+		if(!result.contains("[")){
+			onCommunicationFailed();
+			return;
+		}
+		try {
+			JSONObject resultado = new JSONObject(result);
+			JSONObject clientejson = resultado.getJSONObject("cliente");
+			String codigocli = clientejson.getString("codigo");
+			String nombrecli = clientejson.getString("nombre");
+			int listapcli = clientejson.getInt("listap");
+			int civacli = clientejson.getInt("civa");
+			Cliente cliente = new Cliente(codigocli, nombrecli, listapcli, civacli);
+			JSONArray itemsjson = resultado.getJSONArray("items");
+			Pedido pedido = new Pedido(cliente);
+			for(int i = 0; i < itemsjson.length(); i++){
+				JSONObject item = itemsjson.getJSONObject(i);
+				double precio = item.getDouble("precio");
+				int cantidad = item.getInt("cantidad");
+				double preciounitario = precio / cantidad;
+				String codigo = item.getString("codigo");
+				String descrip = item.getString("descrip");
+				pedido.addArticulo(new Articulo(codigo, descrip, preciounitario), cantidad);
+			}
+			onGotInfo(pedido);
+		} catch(JSONException e) {
+			e.printStackTrace();
+			onCommunicationFailed();
+		}
+	}
+
+	abstract void onGotInfo(Pedido pedido);
+}
+
+abstract class CobrarListener implements CommunicationListener {
+	@Override public void onCommunicationAchieved(String result){
+		if(result.contains("success")){
+			onCobrarSuccess();
+			return;
+		}
+		onCommunicationFailed();
+	}
+
+	abstract void onCobrarSuccess();
+}

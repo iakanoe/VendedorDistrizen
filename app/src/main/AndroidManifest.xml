@@ -13,7 +13,6 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
-
 		<activity android:name=".MainActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
@@ -22,39 +21,35 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-
 		<activity
 			android:name=".VerPedidoActivity"
 			android:label="Ver pedido"
 			android:theme="@style/AppTheme.NoActionBar" />
-
 		<activity
 			android:name=".SeleccionarClienteActivity"
 			android:exported="true"
 			android:label="Elegir cliente"
 			android:theme="@style/AppTheme.NoActionBar" />
-
 		<activity
 			android:name=".SeleccionarArticuloActivity"
-			android:theme="@style/AppTheme.NoActionBar" />
-
-		<activity
-			android:name=".SeleccionarArticuloActivityV2"
 			android:label="Elegir artículo"
 			android:theme="@style/AppTheme.NoActionBar" />
-
 		<activity
 			android:name=".PagosActivity"
+			android:label="Seleccionar pedido"
 			android:theme="@style/AppTheme.NoActionBar" />
-
-		<activity
-			android:name=".PedidosActivity"
-			android:theme="@style/AppTheme.NoActionBar" />
-
 		<activity
 			android:name=".LoginActivity"
 			android:label="Iniciar sesión"
 			android:theme="@style/AppTheme" />
+		<activity
+			android:name=".ResumenPedidoActivity"
+			android:label="Resumen del pedido"
+			android:theme="@style/AppTheme.NoActionBar" />
 
+		<activity
+			android:name=".CobrarActivity"
+			android:label="Cobrar pedido"
+			android:theme="@style/AppTheme.NoActionBar" />
 	</application>
 </manifest>

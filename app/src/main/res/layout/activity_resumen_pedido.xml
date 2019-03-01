@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".ResumenPedidoActivity">
+
+	<android.support.constraint.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+		<me.zhanghai.android.materialprogressbar.MaterialProgressBar
+			android:id="@+id/resumenProgressBar"
+			android:layout_width="0dp"
+			android:layout_height="4dp"
+			android:indeterminate="true"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:mpb_progressStyle="horizontal"
+			app:mpb_useIntrinsicPadding="false" />
+
+		<TextView
+			android:id="@+id/textView6"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="24dp"
+			android:layout_marginTop="24dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginBottom="8dp"
+			android:text="Numero de Pedido:"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toTopOf="@+id/textView10"
+			app:layout_constraintEnd_toStartOf="@+id/txtResumenPedidoID"
+			app:layout_constraintHorizontal_chainStyle="spread_inside"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<TextView
+			android:id="@+id/txtResumenPedidoID"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			android:text="1240"
+			app:layout_constraintStart_toEndOf="@+id/textView6"
+			app:layout_constraintTop_toTopOf="@+id/textView6" />
+
+		<TextView
+			android:id="@+id/textView10"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="24dp"
+			android:layout_marginTop="8dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginBottom="24dp"
+			android:text="Cliente:"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toTopOf="@+id/guideline6"
+			app:layout_constraintEnd_toStartOf="@+id/txtResumenNombreCli"
+			app:layout_constraintHorizontal_chainStyle="spread_inside"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+		<TextView
+			android:id="@+id/txtResumenNombreCli"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginBottom="8dp"
+			android:text="chino x kilo"
+			app:layout_constraintBottom_toTopOf="@+id/txtResumenCodicli"
+			app:layout_constraintEnd_toStartOf="@+id/btnResumenCobrar"
+			app:layout_constraintStart_toEndOf="@+id/textView10"
+			app:layout_constraintTop_toTopOf="@+id/textView10" />
+
+		<TextView
+			android:id="@+id/txtResumenCodicli"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="8dp"
+			android:text="(4025)"
+			app:layout_constraintStart_toEndOf="@+id/textView10"
+			app:layout_constraintTop_toBottomOf="@+id/txtResumenNombreCli" />
+
+		<Button
+			android:id="@+id/btnResumenCobrar"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:layout_marginEnd="24dp"
+			android:layout_marginBottom="16dp"
+			android:padding="24dp"
+			android:text="Cobrar"
+			android:textAlignment="center"
+			android:textSize="18sp"
+			app:layout_constraintBottom_toTopOf="@+id/guideline6"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/txtResumenTotal"
+			app:layout_constraintVertical_bias="1.0" />
+
+		<android.support.constraint.Guideline
+			android:id="@+id/guideline6"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			app:layout_constraintGuide_percent="0.25" />
+
+		<TextView
+			android:id="@+id/textView15"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="24dp"
+			android:layout_marginEnd="8dp"
+			android:text="Total:"
+			android:textStyle="bold"
+			app:layout_constraintEnd_toStartOf="@+id/txtResumenTotal"
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintStart_toStartOf="@+id/guideline7"
+			app:layout_constraintTop_toTopOf="@+id/txtResumenPedidoID" />
+
+		<android.support.constraint.Guideline
+			android:id="@+id/guideline7"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintGuide_percent="0.5" />
+
+		<TextView
+			android:id="@+id/txtResumenTotal"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginEnd="8dp"
+			android:text="$1280.63"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/textView15"
+			app:layout_constraintTop_toTopOf="@+id/textView15" />
+
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/resumenRecyclerView"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/guideline6" />
+
+		<View
+			android:id="@+id/divider"
+			android:layout_width="0dp"
+			android:layout_height="1dp"
+			android:background="#AAAAAA"
+			android:visibility="visible"
+			app:layout_constraintBottom_toTopOf="@+id/resumenRecyclerView"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent" />
+
+		<TextView
+			android:id="@+id/txtResumenEmpty"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Este pedido no tiene artículos."
+			android:visibility="gone"
+			app:layout_constraintBottom_toBottomOf="@+id/resumenRecyclerView"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="@+id/resumenRecyclerView"
+			app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+	</android.support.constraint.ConstraintLayout>
+
+	<android.support.design.widget.AppBarLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+		<android.support.v7.widget.Toolbar
+			android:id="@+id/resumenToolbar"
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:background="@color/colorPrimary"
+			android:theme="@style/ThemeOverlay.AppCompat.Light" />
+
+	</android.support.design.widget.AppBarLayout>
+</android.support.design.widget.CoordinatorLayout>

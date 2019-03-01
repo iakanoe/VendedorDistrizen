@@ -49,7 +49,7 @@ public class SeleccionarClienteActivity extends AppCompatActivity {
 	}
 
 	void clientSelected(Cliente c){
-		Intent i = new Intent(this, SeleccionarArticuloActivityV2.class);
+		Intent i = new Intent(this, SeleccionarArticuloActivity.class);
 		i.putExtra("pedido", new Pedido(c));
 		i.putExtras(getIntent());
 		startActivity(i);
